@@ -20,13 +20,13 @@ Before writing a line of code I checked the obvious options, because most of my 
 
 **Apple's own on-device transcription** in Voice Memos is genuinely good, but it ships with a language whitelist: English, Spanish, Portuguese, French, German, Italian, Japanese, Korean, Chinese, Arabic, Russian, Turkish. Hebrew isn't on it. Recordings in an unsupported language simply never get a Transcript tab. Dead end, immediately.
 
-**Cloud transcription apps** (Otter, Notta, and the rest) support far more languages, but the audio leaves the device to get there. For notes that include planning conversations, work reflections, and the occasional therapy session, that's a trade I wasn't willing to make.
+**Cloud transcription apps** (Otter, Notta, and the rest) support far more languages, but the audio leaves the device to get there. For notes that include planning conversations, work reflections, and other things I'd rather not have leave the device at all, that's a trade I wasn't willing to make.
 
 **Generic Whisper**, run locally, was closer. But the stock multilingual Whisper checkpoints hallucinate badly on Hebrew audio, they'll confidently generate fluent, completely wrong sentences instead of failing loudly. Not usable for anything I'd want to trust later.
 
 What actually worked: `mlx_whisper` running on Apple Silicon, using `ivrit-ai`'s Hebrew fine-tune of Whisper large-v3. Local, fast enough on an M-series Mac, and dramatically more accurate on Hebrew than anything in the general-purpose set.
 
-Transcription solved was maybe 20% of the actual problem.
+Transcription solved maybe 20% of the actual problem.
 
 ## From "transcribe this file" to "watch my life"
 
@@ -40,10 +40,10 @@ The pipeline, end to end:
 
 - A `launchd` LaunchAgent runs every 60 seconds and on any change to the Voice Memos recordings folder.
 - It reads Apple's own metadata database (`CloudRecordings.db`), not the folder contents directly.
-- New or unprocessed recordings get transcribed locally with MLX Whisper.
-- The transcript is summarized with `claude -p` into a short Markdown file: summary, action items, notable details.
+- New or unprocessed recordings get transcribed locally with MLX Whisper. Audio never leaves the machine.
+- The transcript, not the audio, is summarized with `claude -p` into a short Markdown file: summary, action items, notable details. That's the one step where text can leave the machine, depending on how Claude Code is configured.
 - A durable local state file tracks what's been processed, so nothing gets transcribed twice.
-- I get a macOS notification when something is detected, deferred, failed, or done.
+- I get a macOS notification when something is deferred, fails, or finishes.
 
 None of that is exotic. What made it work reliably was the boring 80% underneath.
 
