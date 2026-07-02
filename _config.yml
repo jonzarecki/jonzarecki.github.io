@@ -1,0 +1,38 @@
+title: Jonathan Zarecki
+description: >-
+  Notes on AI infra, agentic systems, and small local automations
+  built by someone who tests things himself before writing about them.
+author: Jonathan Zarecki
+url: "https://jonzarecki.github.io"
+baseurl: ""
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+social:
+  linkedin: "https://www.linkedin.com/in/jonathan-zarecki"
+  github: "https://github.com/jonzarecki"
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

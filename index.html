@@ -1,0 +1,18 @@
+---
+layout: default
+title: Home
+---
+<p class="intro">
+  Notes on AI infrastructure, agentic systems, and the small local automations I build to test ideas
+  on myself before I write about them.
+</p>
+
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li class="post-list-item">
+    <span class="date">{{ post.date | date: "%B %-d, %Y" }}</span>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 32 }}</p>
+  </li>
+  {% endfor %}
+</ul>

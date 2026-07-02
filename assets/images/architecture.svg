@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 620" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a97e0"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="620" fill="#ffffff" rx="14"/>
+
+  <!-- Row 1 -->
+  <g>
+    <rect x="20" y="30" width="150" height="64" rx="10" fill="#fdece6" stroke="#ef6c4d" stroke-width="1.5"/>
+    <text x="95" y="58" text-anchor="middle" font-size="13" font-weight="600" fill="#7a3220">Apple Watch</text>
+    <text x="95" y="76" text-anchor="middle" font-size="12" fill="#7a3220">records a memo</text>
+  </g>
+
+  <line x1="170" y1="62" x2="212" y2="62" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="215" y="30" width="130" height="64" rx="10" fill="#eef0fb" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="280" y="58" text-anchor="middle" font-size="13" font-weight="600" fill="#332f8a">iCloud sync</text>
+    <text x="280" y="76" text-anchor="middle" font-size="11" fill="#332f8a">watch &#8594; iPhone &#8594; Mac</text>
+  </g>
+
+  <line x1="345" y1="62" x2="387" y2="62" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="390" y="30" width="170" height="64" rx="10" fill="#eef0fb" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="475" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="#332f8a">Voice Memos</text>
+    <text x="475" y="70" text-anchor="middle" font-size="11" fill="#332f8a">native app, on the Mac</text>
+    <text x="475" y="85" text-anchor="middle" font-size="11" fill="#332f8a">.m4a / .qta on disk</text>
+  </g>
+
+  <line x1="475" y1="94" x2="475" y2="128" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Row 2: detection -->
+  <rect x="215" y="130" width="345" height="70" rx="10" fill="#fff8ec" stroke="#c98a1a" stroke-width="1.5"/>
+  <text x="387" y="156" text-anchor="middle" font-size="13" font-weight="600" fill="#5a3f0a">CloudRecordings.db</text>
+  <text x="387" y="174" text-anchor="middle" font-size="11" fill="#5a3f0a">queried by launchd every 60s + on folder change</text>
+  <text x="387" y="190" text-anchor="middle" font-size="11" fill="#5a3f0a">source of truth, not blind folder watching</text>
+
+  <line x1="387" y1="200" x2="387" y2="234" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Row 3: wrapper app -->
+  <rect x="215" y="236" width="345" height="70" rx="10" fill="#eef0fb" stroke="#4f46e5" stroke-width="1.5"/>
+  <text x="387" y="262" text-anchor="middle" font-size="13" font-weight="600" fill="#332f8a">VoiceMemoTranscriberRunner.app</text>
+  <text x="387" y="280" text-anchor="middle" font-size="11" fill="#332f8a">holds Full Disk Access, launched via `open`</text>
+  <text x="387" y="296" text-anchor="middle" font-size="11" fill="#332f8a">execs the Python worker</text>
+
+  <line x1="330" y1="306" x2="220" y2="345" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="440" y1="306" x2="550" y2="345" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Row 4: whisper + claude -->
+  <rect x="40" y="348" width="290" height="78" rx="10" fill="#fdece6" stroke="#ef6c4d" stroke-width="1.5"/>
+  <text x="185" y="374" text-anchor="middle" font-size="13" font-weight="600" fill="#7a3220">MLX Whisper (local)</text>
+  <text x="185" y="392" text-anchor="middle" font-size="11" fill="#7a3220">ivrit-ai large-v3 for Hebrew</text>
+  <text x="185" y="408" text-anchor="middle" font-size="11" fill="#7a3220">writes transcript.txt</text>
+
+  <rect x="430" y="348" width="290" height="78" rx="10" fill="#eaf6ee" stroke="#2f8f5b" stroke-width="1.5"/>
+  <text x="575" y="374" text-anchor="middle" font-size="13" font-weight="600" fill="#175c3a">Claude Code (claude -p)</text>
+  <text x="575" y="392" text-anchor="middle" font-size="11" fill="#175c3a">summary, action items,</text>
+  <text x="575" y="408" text-anchor="middle" font-size="11" fill="#175c3a">notable details &#8594; summary.md</text>
+
+  <line x1="185" y1="426" x2="300" y2="470" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="575" y1="426" x2="460" y2="470" stroke="#9a97e0" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Row 5: state + notification -->
+  <rect x="200" y="472" width="375" height="70" rx="10" fill="#f4f2ee" stroke="#8a8578" stroke-width="1.5"/>
+  <text x="387" y="498" text-anchor="middle" font-size="13" font-weight="600" fill="#3a362c">state.json + macOS notification</text>
+  <text x="387" y="516" text-anchor="middle" font-size="11" fill="#3a362c">battery-aware, deduped, resumable</text>
+
+  <text x="380" y="580" text-anchor="middle" font-size="11" fill="#9a978f">macos-voice-memos-transcriber &#8212; end-to-end flow</text>
+</svg>
